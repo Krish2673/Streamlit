@@ -122,7 +122,7 @@ elif choice == "Fully vs. Partially Covered Habitation by State":
     # Display data in Streamlit
     st.dataframe(df_habitation)
 
-    # Multiselect for states with an "All States" option
+    # Multiselect for selecting specific states or all states
     state_list = ["All States"] + df_habitation['STATES'].unique().tolist()
     selected_states = st.multiselect("Select State(s)", state_list, default="All States")
 
@@ -139,7 +139,7 @@ elif choice == "Fully vs. Partially Covered Habitation by State":
         df_filtered.set_index('STATES')[['PERCENT_FULLY_COVERED', 'PERCENT_PARTIALLY_COVERED']].plot(
             kind='bar', stacked=True, color=['#1f77b4', '#ff7f0e'])
     else:
-        plt.bar([],[])
+        plt.bar([],[]) # Empty Chart if no state is selected
     plt.xticks(rotation=90)
     plt.title("Fully vs. Partially Covered Habitations by State")
     plt.xlabel("State")
@@ -170,7 +170,7 @@ elif choice == "Quality-Affected Habitations by State":
     if not df_filtered.empty:
         sns.barplot(x='STATES', y='QUALITY_AFFECTED_HABITATIONS', data=df_filtered, palette='magma')
     else:
-        plt.bar([], [])  # Show an empty chart if no states meet the threshold
+        plt.bar([], [])  # Empty chart if no states meet the threshold
     plt.xticks(rotation=90)
     plt.title(f"Quality-Affected Habitations (Threshold: {threshold}+) by State")
     plt.xlabel("State")
@@ -203,12 +203,12 @@ elif choice == "Land Use Distribution Across States":
 
     # Filter data based on selected states and land use type
     if "All States" in selected_states:
-        df_filtered = df_land_use[['STATES', selected_land_use]]  # Show all data if "All States" is selected
+        df_filtered = df_land_use[['STATES', selected_land_use]]  
     else:
         df_filtered = df_land_use[df_land_use['STATES'].isin(selected_states)][['STATES', selected_land_use]]
     st.dataframe(df_filtered)
 
-    # Plotting with Seaborn
+    # Plotting
     plt.figure(figsize=(12, 8))
     if not df_filtered.empty:
         sns.barplot(data=df_filtered, x='STATES', y=selected_land_use, palette='viridis')
@@ -271,7 +271,7 @@ elif choice == "Housing Demand vs. Allotment by State":
 
     # Filter data based on selected states
     if "All States" in selected_states:
-        df_filtered = df_housing  # Display all data if "All States" is selected
+        df_filtered = df_housing  
     else:
         df_filtered = df_housing[df_housing['STATES'].isin(selected_states)]
     st.dataframe(df_filtered)
@@ -319,12 +319,12 @@ elif choice == "Prediction":
     model = LinearRegression()
     model.fit(X, y)
 
-    # Predict Urban Growth for Future Decades (2021, 2031, 2041, ...)
+    # Predict Urban Growth for Future Decades
     future_decades = pd.DataFrame({'YEAR': [2021, 2031, 2041, 2051, 2061]})
     future_growth_pred = model.predict(future_decades)
 
     # Use Polynomial Regression for non-linear prediction
-    poly = PolynomialFeatures(degree=2)  # Degree 2 for quadratic curve
+    poly = PolynomialFeatures(degree=2)  
     X_poly = poly.fit_transform(df_urban_growth[['YEAR']])
     model = LinearRegression()
     model.fit(X_poly, y)
@@ -345,9 +345,9 @@ elif choice == "Prediction":
     # Plot actual data
     plt.figure(figsize=(10, 6))
     plt.plot(df_urban_growth['YEAR'], df_urban_growth['PERCENT_URBAN_TO_TOTAL'], color='red',marker='o', label='Actual Data')
-    plt.plot([2011,2021],[df_urban_growth['PERCENT_URBAN_TO_TOTAL'].iloc[-1],future_predictions[0]],color = 'blue')
 
     # Plot future predictions
+    plt.plot([2011,2021],[df_urban_growth['PERCENT_URBAN_TO_TOTAL'].iloc[-1],future_predictions[0]],color = 'blue')
     plt.plot(future_decades['YEAR'], future_predictions, label='Predicted Growth', color='blue', marker='o')
 
     # Final adjustments
