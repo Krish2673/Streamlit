@@ -11,11 +11,11 @@ from sklearn.preprocessing import PolynomialFeatures
 @st.cache_resource
 def create_snowflake_connection():
     return snowflake.connector.connect(
-        user=st.secrets["snowflake"]["user"],
-        password=st.secrets["snowflake"]["password"]',
-        account=st.secrets["snowflake"]["account"],
-        warehouse='COMPUTE_WH',
-        database='URBANPLANNING',
+        user='Krish73',
+        password='Kri$h2685',
+        account='tuzcxib-ux02731',
+       warehouse='COMPUTE_WH',
+       database='URBANPLANNING',
         schema='URBANPLAN'
     )
 
@@ -34,8 +34,8 @@ sections = [
     "Land Use Distribution Across States",
     "Urban Population Growth Over Decades", 
     "Housing Demand vs. Allotment by State",
-    "Summary",
-    "Prediction"
+    "Prediction",
+    "Summary"
 ]
 choice = st.sidebar.radio("Select Analysis Section", sections)
 
@@ -294,17 +294,6 @@ elif choice == "Housing Demand vs. Allotment by State":
     st.markdown("### Insight")
     st.markdown("A high demand-allotment gap reveals potential shortfalls in housing allocations, highlighting areas needing further support.")
 
-elif choice == "Summary":
-    st.header("Summary")
-    st.markdown("This project provides an integrated analysis of India’s infrastructure and urban development landscape, revealing critical insights "
-    "into the factors shaping the nation's growth trajectory. With rapid urbanization, states experience diverse challenges, such as "
-    "population density strains, resource allocation disparities, and varying levels of habitation coverage. These findings underscore "
-    "the need for balanced development and strategic interventions. Policies focused on equitable housing allocations, enhanced urban infrastructure, "
-    "and sustainable land use can support resilient growth. To address emerging demands, a coordinated approach involving public-private partnerships, "
-    "local governance enhancements, and sustainable investment strategies could be instrumental. This approach not only mitigates existing urban pressures "
-    "but also aligns with long-term goals for a resilient, equitable, and sustainable urban future."
-    )
-
 elif choice == "Prediction":
     # Displaying the Data
     st.header("Urban Population Growth Prediction")
@@ -356,3 +345,14 @@ elif choice == "Prediction":
     plt.title('Urban Population Growth Prediction (by Decade)')
     plt.legend()
     st.pyplot(plt)
+
+elif choice == "Summary":
+    st.header("Summary")
+    st.markdown("This project provides an integrated analysis of India’s infrastructure and urban development landscape, revealing critical insights "
+    "into the factors shaping the nation's growth trajectory. With rapid urbanization, states experience diverse challenges, such as "
+    "population density strains, resource allocation disparities, and varying levels of habitation coverage. These findings underscore "
+    "the need for balanced development and strategic interventions. Policies focused on equitable housing allocations, enhanced urban infrastructure, "
+    "and sustainable land use can support resilient growth. To address emerging demands, a coordinated approach involving public-private partnerships, "
+    "local governance enhancements, and sustainable investment strategies could be instrumental. This approach not only mitigates existing urban pressures "
+    "but also aligns with long-term goals for a resilient, equitable, and sustainable urban future."
+    )
