@@ -11,9 +11,9 @@ from sklearn.preprocessing import PolynomialFeatures
 @st.cache_resource
 def create_snowflake_connection():
     return snowflake.connector.connect(
-        user='Krish73',
-        password='Kri$h2685',
-        account='tuzcxib-ux02731',
+        user=st.secrets["snowflake"]["user"],
+        password=st.secrets["snowflake"]["password"],
+        account=st.secrets["snowflake"]["account"],
        warehouse='COMPUTE_WH',
        database='URBANPLANNING',
         schema='URBANPLAN'
